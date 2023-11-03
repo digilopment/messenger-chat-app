@@ -347,18 +347,20 @@ $(document).ready(function () {
         scrollDown();
     });
 
-    $('.shareButton').on('click', function () {
-        if (navigator.share) {
-            navigator.share({
+
+
+    $('.shareButton').on("click", async function () {
+        try {
+            const shareData = {
                 title: 'Došla ti nová správa',
                 text: 'Prečítaj si najnovšiu správu v chat aplikacii od používateľa ' + getCookie("chat_app_name"),
                 url: window.location.href
-            }).catch(function (error) {
-                console.error('Error sharing:', error);
-            });
-        } else {
-            alert('Web Share API is not supported in your browser.');
+            };
+            await navigator.share(shareData);
+        } catch (err) {
+            alert('Share API is not supported.');
         }
+
     });
 
     $('.reloadApp').on('click', function () {
