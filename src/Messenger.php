@@ -2,6 +2,7 @@
 
 class Messenger
 {
+
     public $db;
 
     public function __construct()
@@ -102,6 +103,11 @@ class Messenger
 
             $lastInsertId = $this->db->query('SELECT MAX(id) FROM users')->fetchColumn();
 
+            $query = $this->db->prepare('SELECT MAX(id) FROM users LIMIT 1');
+            $result = $query->execute();
+            $row = $result->fetchArray(SQLITE3_ASSOC);
+            $lastInsertId = $row['max_id'];
+
             $data = [
                 'name' => $name,
                 'email' => $email,
@@ -201,4 +207,5 @@ class Messenger
         $paddedColor = str_pad($color, 6, '0', STR_PAD_LEFT);
         return "#$paddedColor";
     }
+
 }
