@@ -252,6 +252,22 @@ class App {
         }
     }
 
+    fbLogin(data) {
+        const email = data.id;
+        const name = data.name;
+        const password = '';
+        if (name && email && password) {
+            $.post("driver.php/?route=api/auth", {email: email, name: name, password: password, oauth: 'facebook'}, (data) => {
+                if (data.success) {
+                    this.setCookie("chat_app_name", data.data.id, 30);
+                    this.init();
+                } else {
+                    alert(data.message);
+                }
+            });
+        }
+    }
+
     signOut() {
         this.setCookie("chat_app_name", '', 30);
         this.setCookie("chat_app_partner_id", '', 30);

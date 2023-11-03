@@ -2,6 +2,7 @@
 
 class Messenger
 {
+
     public $db;
 
     public function __construct()
@@ -99,6 +100,12 @@ class Messenger
             $query->bindValue(':color', $color, SQLITE3_TEXT);
             $query->bindValue(':created_at', $createdAt, SQLITE3_TEXT);
             $query->execute();
+
+            $data = [
+                'name' => $name,
+                'email' => $email,
+                'id' => $query->lastInsertId()
+            ];
             $response = [
                 'success' => 1,
                 'message' => 'Používateľ bol úspešne vytvorený. ',
@@ -129,9 +136,33 @@ class Messenger
         }
     }
 
+    public function fbLogin($data)
+    {
+        $password = md5('fbLogin' . $data['email']);
+        $name = $data['name'];
+        $email = $data['email'];
+        $user = $this->getUserByEmail($email);
+        if ($user && ($user['password'] == md5($password))) {
+            $_SESSION['user'] = $user['id'];
+        } else {
+            $data = [
+                'email' => $email,
+                'password' => $password,
+                'name' => $name,
+            ];
+            $user = $this->createUser($data);
+            $_SESSION['user'] = $user['data']['id'];
+        }
+
+        return [
+            'success' => 1,
+            'message' => 'Prihlásenie úspešné.',
+            'data' => $user,
+        ];
+    }
+
     public function logout()
     {
-        // Odhlásenie používateľa
         if (isset($_SESSION['user'])) {
             unset($_SESSION['user']);
         }
@@ -169,4 +200,5 @@ class Messenger
         $paddedColor = str_pad($color, 6, '0', STR_PAD_LEFT);
         return "#$paddedColor";
     }
+
 }
