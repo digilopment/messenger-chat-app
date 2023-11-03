@@ -87,3 +87,17 @@ i.icon-button{
     cursor:pointer;
     z-index:999;
 }
+.fb-button .fb_iframe_widget{
+    background: #1877f2;
+    padding: inherit;
+    height: 50px;
+    border-radius: 5px;
+    display: block;
+}
+.fb-button .fb_iframe_widget span{
+    margin: 100px auto;
+    display: block;
+}
+.fb-button .fb_iframe_widget span iframe{
+    margin-top: 5px;
+}

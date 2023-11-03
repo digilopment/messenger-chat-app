@@ -331,6 +331,7 @@ $(document).ready(function () {
 
     $(".signOut").click(function () {
         app.signOut();
+        FB.logout();
     });
 
 
