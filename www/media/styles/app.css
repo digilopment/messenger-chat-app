@@ -1,0 +1,89 @@
+body {
+    background-color: #fdfdfd;
+}
+#chat-messages {
+    margin-top: 30px;
+}
+#chat-messages small {
+    float: right;
+    font-size: 10px;
+    display: block;
+    font-weight: bold;
+    color: #000;
+    padding: 2px;
+    border-radius: 5px;
+    margin-top: 15px;
+    margin-right: -10px;
+}
+body .container{
+    margin: 40px auto;
+}
+body .card-footer{
+    bottom: 0px;
+    position: fixed;
+    margin-bottom: 0px;
+    background: #f7f7f7;
+    width: 100%;
+}
+body .card-header{
+    top: 0px;
+    position: fixed;
+    width: 100%;
+    background: #f7f7f7;
+    z-index:2;
+}
+
+body .card-body{
+    width: 100%;
+}
+body i{
+    color: #0d6efd;
+}
+body i.userImage{
+    font-size: 45px;
+}
+.signFragment{
+    margin-top: 20%;
+}
+.signFragment .nav-link{
+    width: 33%;
+}
+.signFragment .nav-tabs{
+    border-bottom:0px;
+}
+.signFragment .tab-content{
+    padding: 25px 0px;
+}
+.signFragment .btn{
+    width: 100%;
+}
+
+.card-header .imgage,
+.card-header img,
+.card-footer .imgage,
+.card-footer img{
+    width: 40px;
+    height: 100%;
+    margin-right: 15px;
+}
+
+body h1{
+    text-align: center;
+    font-weight: bold;
+    display: block;
+    padding: 50px 0px;
+}
+.user-me p{
+    color:#ffffff;
+}
+.user-me p a{
+    font-weight: bold;
+    color: #ffffff;
+    text-decoration: underline;
+
+}
+i.icon-button{
+    padding:15px;
+    cursor:pointer;
+    z-index:999;
+}
