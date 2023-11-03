@@ -113,15 +113,20 @@
                     <div class="tab-pane fade" id="nav-facebook" role="tabpanel" aria-labelledby="nav-facebook-tab" tabindex="0">
                         <div id="facebook">
                             <div class="mb-3">
-                                 <div class="container">
-                                <div
-                                    class="fb-login-button"
-                                    data-max-rows="1"
-                                    data-size="large"
-                                    data-button-type="continue_with"
-                                    data-use-continue-as="true"
-                                    ></div>
-                                   </div>
+                                <div class="container">
+                                    
+                                    <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <div
+                                        class="fb-login-button"
+                                        data-max-rows="1"
+                                        data-size="large"
+                                        data-button-type="continue_with"
+                                        data-use-continue-as="true"
+                                        ></div>
+                                </div>
                             </div>
                         </div>
                     </div>
