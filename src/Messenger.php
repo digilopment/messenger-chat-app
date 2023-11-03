@@ -104,7 +104,7 @@ class Messenger
             $data = [
                 'name' => $name,
                 'email' => $email,
-                'id' => $query->lastInsertId()
+                'id' => $this->db->lastInsertId()
             ];
             $response = [
                 'success' => 1,
