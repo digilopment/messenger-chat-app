@@ -100,9 +100,7 @@ class Messenger
             $query->bindValue(':color', $color, SQLITE3_TEXT);
             $query->bindValue(':created_at', $createdAt, SQLITE3_TEXT);
             $query->execute();
-
-            $lastInsertId = $this->db->query('SELECT MAX(id) FROM users')->fetchColumn();
-
+            
             $query = $this->db->prepare('SELECT MAX(id) FROM users LIMIT 1');
             $result = $query->execute();
             $row = $result->fetchArray(SQLITE3_ASSOC);
