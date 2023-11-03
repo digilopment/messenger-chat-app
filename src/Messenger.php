@@ -2,17 +2,13 @@
 
 class Messenger
 {
-
-    private $channelName;
     public $db;
 
     public function __construct()
     {
-        // Pripojenie k SQLite databáze
         $this->initializeSession();
         $this->db = new SQLite3('../storage/chat.db');
 
-        // Vytvorenie tabuľky, ak ešte neexistuje
         $query = 'CREATE TABLE IF NOT EXISTS messages (
             id INTEGER PRIMARY KEY,
             channel_name TEXT,
@@ -91,10 +87,9 @@ class Messenger
             $response = [
                 'success' => 0,
                 'message' => 'Používateľ s týmto emailom už existuje.',
-                'data' => $data
+                'data' => $data,
             ];
         } else {
-
             $createdAt = (new DateTime())->format('Y-m-d H:i:s');
 
             $query = $this->db->prepare('INSERT INTO users (name, password, email, color, created_at) VALUES (:name, :password, :email, :color, :created_at)');
@@ -123,13 +118,13 @@ class Messenger
             return [
                 'success' => 1,
                 'message' => 'Prihlásenie úspešné.',
-                'data' => $user
+                'data' => $user,
             ];
         } else {
             return [
                 'success' => 0,
                 'message' => 'Nesprávne prihlasovacie údaje.',
-                'data' => $user
+                'data' => $user,
             ];
         }
     }
@@ -145,8 +140,8 @@ class Messenger
 
     public function headers()
     {
-        header("Content-Type: application/json");
-        header("Access-Control-Allow-Origin: *");
+        header('Content-Type: application/json');
+        header('Access-Control-Allow-Origin: *');
         return $this;
     }
 
@@ -155,8 +150,6 @@ class Messenger
         $utf8EncodedData = mb_convert_encoding($response, 'UTF-8');
         echo json_encode($utf8EncodedData);
     }
-
-    // ...
 
     private function getUserByEmail($email)
     {
@@ -168,16 +161,12 @@ class Messenger
 
     public function stringToHexColor($str)
     {
-        // Hash the string to get a number
         $hash = 0;
         for ($i = 0; $i < strlen($str); $i++) {
             $hash = ord($str[$i]) + (($hash << 5) - $hash);
         }
-        // Convert the number to a hexadecimal color
         $color = strtoupper(dechex($hash & 0x00FFFFFF));
-        // Ensure the color is 6 characters long by adding leading zeros if needed
         $paddedColor = str_pad($color, 6, '0', STR_PAD_LEFT);
         return "#$paddedColor";
     }
-
 }

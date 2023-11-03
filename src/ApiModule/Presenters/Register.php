@@ -1,6 +1,5 @@
 <?php
 (new class {
-
     private $messenger;
 
     public function __construct()
@@ -10,8 +9,13 @@
 
     public function run()
     {
-        $response = $this->messenger->getUsers();
+
+        $data = [
+            'name' => $_POST['name'],
+            'password' => md5($_POST['password']),
+            'email' => $_POST['email'],
+        ];
+        $response = $this->messenger->createUser($data);
         $this->messenger->headers()->getResponse($response);
     }
-
 })->run();

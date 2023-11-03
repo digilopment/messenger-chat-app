@@ -1,7 +1,6 @@
 <?php
 
 (new class {
-
     private $messenger;
 
     public function __construct()
@@ -11,12 +10,13 @@
 
     public function run()
     {
-        $data = [
-            'password' => $_POST['password'],
-            'email' => $_POST['email'],
-        ];
-        $response = $this->messenger->login($data);
+        $response = [];
+        $paramId = $_GET['id'] ?? '';
+        $id = $_SESSION['user'] ?? '';
+        $userId = $paramId ? $paramId : $id;
+        if ($userId) {
+            $response = $this->messenger->getUser($userId);
+        }
         $this->messenger->headers()->getResponse($response);
     }
-
 })->run();

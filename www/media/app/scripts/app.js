@@ -83,7 +83,7 @@ class App {
     sendMessage() {
         const message = $("#message").val();
         if (message.length > 1) {
-            $.post("/?route=message", {channel: this.channelName, user: this.userData.id, message: message}, function (data) {
+            $.post("driver.php/?route=api/message", {channel: this.channelName, user: this.userData.id, message: message}, function (data) {
                 $("#message").val('');
             });
         }
@@ -92,7 +92,7 @@ class App {
     refreshChat() {
         if (this.channelName) {
             this.chatMessages.fadeIn();
-            $.get("/?route=message", {channel: this.channelName}, (data) => {
+            $.get("driver.php/?route=api/message", {channel: this.channelName}, (data) => {
                 const messages = JSON.parse(data);
                 if (messages) {
                     const latestMessage = messages[messages.length - 1];
@@ -140,7 +140,7 @@ class App {
     getUserData() {
         var userData;
         $.ajax({
-            url: "/?route=me",
+            url: "driver.php/?route=api/me",
             method: "GET",
             dataType: "json", // Assuming the response is JSON
             async: false // Make the request synchronous
@@ -155,7 +155,7 @@ class App {
     getPartnerData(id) {
         var userData;
         $.ajax({
-            url: "/?route=me&id=" + id,
+            url: "driver.php/?route=api/me&id=" + id,
             method: "GET",
             dataType: "json", // Assuming the response is JSON
             async: false // Make the request synchronous
@@ -168,7 +168,7 @@ class App {
     }
 
     getUsers() {
-        $.get("/?route=users", (userData) => {
+        $.get("driver.php/?route=api/users", (userData) => {
             var $userList = $("#userList");
             var $select = $userList.find("select");
             $select.empty();
@@ -220,7 +220,7 @@ class App {
         const email = $("#sectionRegistration .email").val();
         const password = $("#sectionRegistration .password").val();
         if (name && email && password) {
-            $.post("/?route=register", {name: name, email: email, password: password}, (data) => {
+            $.post("driver.php/?route=api/register", {name: name, email: email, password: password}, (data) => {
                 if (data.success) {
                     console.log(data);
                     this.setCookie("chat_app_name", data.data.id, 30);
@@ -239,7 +239,7 @@ class App {
         const email = $("#sectionLogin .email").val();
         const password = $("#sectionLogin .password").val();
         if (email && password) {
-            $.post("/?route=auth", {email: email, password: password}, (data) => {
+            $.post("driver.php/?route=api/auth", {email: email, password: password}, (data) => {
                 if (data.success) {
                     this.setCookie("chat_app_name", data.data.id, 30);
                     this.init();

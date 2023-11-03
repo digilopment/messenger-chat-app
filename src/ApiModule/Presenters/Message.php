@@ -1,6 +1,5 @@
 <?php
 (new class {
-
     private $messenger;
 
     public function __construct()
@@ -51,5 +50,4 @@
             $this->handleGetRequest();
         }
     }
-
 })->route();

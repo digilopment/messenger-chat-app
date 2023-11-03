@@ -1,6 +1,5 @@
 <?php
 (new class {
-
     private $messenger;
 
     public function __construct()
@@ -11,7 +10,7 @@
     public function run()
     {
         $id = 3;
-        $newName = "Magda";
+        $newName = 'Magda';
         $sql = "UPDATE users SET name = 'Magda' WHERE id = :id";
 
         // Prepare the query
@@ -22,5 +21,4 @@
 
         $query->execute();
     }
-
 })->run();
