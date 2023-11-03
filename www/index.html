@@ -30,7 +30,6 @@
         <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 
         <script>
-
             function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
                 console.log('statusChangeCallback');
                 console.log(response);                   // The current login status of the person.
@@ -41,15 +40,11 @@
                             'into this webpage.';
                 }
             }
-
-
             function checkLoginState() {               // Called when a person is finished with the Login Button.
                 FB.getLoginStatus(function (response) {   // See the onlogin handler
                     statusChangeCallback(response);
                 });
             }
-
-
             window.fbAsyncInit = function () {
                 FB.init({
                     appId: '357055923378845',
@@ -57,8 +52,6 @@
                     xfbml: true, // Parse social plugins on this webpage.
                     version: 'v18.0'           // Use this Graph API version for this call.
                 });
-
-
                 FB.getLoginStatus(function (response) {   // Called after the JS SDK has been initialized.
                     statusChangeCallback(response);        // Returns the login status.
                 });
@@ -77,65 +70,6 @@
         </script>
 
         <script>
-            /*let user;
-             
-             function oauthSignIn() {
-             // Google's OAuth 2.0 endpoint for requesting an access token
-             var oauth2Endpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
-             
-             // Create <form> element to submit parameters to OAuth 2.0 endpoint.
-             var form = document.createElement('form');
-             form.setAttribute('method', 'GET'); // Send as a GET request.
-             form.setAttribute('action', oauth2Endpoint);
-             
-             // Parameters to pass to OAuth 2.0 endpoint.
-             var params = {'client_id': '457514265065-lebcoj1o48gv3macbic8nge3tpp59k3f.apps.googleusercontent.com',
-             'redirect_uri': 'https://messenger.query.sk',
-             'response_type': 'token',
-             'scope': 'https://www.googleapis.com/auth/drive.metadata.readonly',
-             'include_granted_scopes': 'true',
-             'state': 'pass-through value'};
-             
-             // Add form parameters as hidden input values.
-             for (var p in params) {
-             var input = document.createElement('input');
-             input.setAttribute('type', 'hidden');
-             input.setAttribute('name', p);
-             input.setAttribute('value', params[p]);
-             form.appendChild(input);
-             }
-             
-             // Add form to page and submit it to open the OAuth 2.0 endpoint.
-             document.body.appendChild(form);
-             form.submit();
-             }
-             
-             function initializeGsi() {
-             
-             if (!window.google) {
-             console.log('no goole');
-             return;
-             }
-             window.google.accounts.id.initialize({
-             client_id: '457514265065-lebcoj1o48gv3macbic8nge3tpp59k3f.apps.googleusercontent.com',
-             callback: handleGoogleSignIn
-             });
-             }
-             
-             function handleGoogleSignIn(res) {
-             if (!res.clientId || !res.credential) {
-             console.log('no res');
-             return;
-             }
-             
-             console.log('logged');
-             console.log(res);
-             user = res.data?.login.user;
-             console.log(user);
-             }
-             window.onload = function () {
-             initializeGsi();
-             };*/
             if ('Notification' in window) {
                 if (Notification.permission !== 'granted') {
                     Notification.requestPermission();
@@ -165,40 +99,29 @@
 
 
         <div class="container">
-
             <!-- SIGN FRAGMENT -->
             <div class="signFragment" style="display:none">
                 <div><h1 class="mb-0">NoAds Messenger</h1></div>
                 <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        <button class="nav-link" id="nav-google-tab" data-bs-toggle="tab" data-bs-target="#nav-google" type="button" role="tab" aria-controls="nav-google" aria-selected="false">Facebook</button>
+                        <button class="nav-link" id="nav-facebook-tab" data-bs-toggle="tab" data-bs-target="#nav-facebook" type="button" role="tab" aria-controls="nav-facebook" aria-selected="false">Facebook</button>
                         <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Login</button>
                         <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Registration</button>
                     </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade" id="nav-google" role="tabpanel" aria-labelledby="nav-google-tab" tabindex="0">
-                        <div id="google">
+                    <div class="tab-pane fade" id="nav-facebook" role="tabpanel" aria-labelledby="nav-facebook-tab" tabindex="0">
+                        <div id="facebook">
                             <div class="mb-3">
-                                <!--
-                                <div id="g_id_onload"
-                                     data-client_id="457514265065-lebcoj1o48gv3macbic8nge3tpp59k3f.apps.googleusercontent.com"
-                                     data-context="signin"
-                                     data-ux_mode="button"
-                                     data-state_cookie_domain="https://messenger.query.sk"
-                                     data-login_uri="https://messenger.query.sk"
-                                     data-itp_support="true">
-                                </div>
-                                <div class="g_id_signin"
-                                     data-type="standard"
-                                     data-shape="rectangular"
-                                     data-theme="outline"
-                                     data-text="signin_with"
-                                     data-size="large"
-                                     data-logo_alignment="left">
-                                </div>
-                                -->
-                                <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+                                 <div class="container">
+                                <div
+                                    class="fb-login-button"
+                                    data-max-rows="1"
+                                    data-size="large"
+                                    data-button-type="continue_with"
+                                    data-use-continue-as="true"
+                                    ></div>
+                                   </div>
                             </div>
                         </div>
                     </div>
