@@ -10,6 +10,7 @@ class App {
     }
 
     init() {
+        $('.reloadApp').addClass("rotate");
         this.userName = this.getCookie("chat_app_name");
         this.channelName = this.getCookie("chat_app_channel");
         this.lastPartnerId = this.getCookie("chat_app_partner_id");
@@ -101,20 +102,10 @@ class App {
                         //messages.reverse().forEach((msg) => {
                         messages.forEach((msg) => {
                             const messageWithLinks = parseLinksInMessage(msg.message);
-                            var partnerId = getPartnerId(this.channelName, this.userData.id);
-                            //console.log(this.channelName);
-                            //console.log(this.userData.id);
-                            //console.log(partnerId);
-                            //console.log(this.partnerData);
-
                             var userClass = msg.user == this.userData.id ? 'user-me' : 'user-partner';
                             var messageBGColor = msg.user == this.userData.id ? '#1877f2' : '#e4e6eb';
                             var messagePosition = msg.user == this.userData.id ? 'justify-content-end' : 'justify-content';
                             var userName = msg.user == this.userData.id ? this.userData.name : this.partnerData.name;
-                            /*var messageTXColor = msg.user == this.userData.id ? '#ffffff' : '#111111';
-                             var messagePosition = msg.user == this.userData.id ? 'justify-content-end' : 'justify-content';
-                             var userName = msg.user == this.userData.id ? this.userData.name : this.partnerData.name;*/
-
 
                             this.chatMessages.append(`<div class="${userClass}">
                                 <div class="d-flex flex-row ${messagePosition} mb-4">
@@ -135,6 +126,7 @@ class App {
                 }
             });
         }
+        $('.reloadApp').removeClass("rotate");
     }
 
     getUserData() {
@@ -331,7 +323,9 @@ $(document).ready(function () {
 
     $(".signOut").click(function () {
         app.signOut();
-        FB.logout();
+        if (FB) {
+            FB.logout();
+        }
     });
 
 
@@ -353,20 +347,22 @@ $(document).ready(function () {
         try {
             const shareData = {
                 title: 'Došla ti nová správa',
-                text: 'Prečítaj si najnovšiu správu v chat aplikacii od používateľa ' + getCookie("chat_app_name"),
+                text: 'Prečítaj si najnovšiu správu v chat aplikacii od používateľa ' + app.userData.name,
                 url: window.location.href
             };
             await navigator.share(shareData);
         } catch (err) {
-            alert('Share API is not supported.');
+            //alert('Share API is not supported OK.');
         }
 
     });
 
     $('.reloadApp').on('click', function () {
+        $(this).addClass("rotate");
         app = new App();
         app.init();
         readMessages(app);
+
     });
 
 });

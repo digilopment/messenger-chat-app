@@ -101,3 +101,14 @@ i.icon-button{
 .fb-button .fb_iframe_widget span iframe{
     margin-top: 5px;
 }
+.reloadApp.rotate {
+    animation: rotateAnimation 2s linear infinite;
+}
+@keyframes rotateAnimation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
