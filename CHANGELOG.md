@@ -1,6 +1,14 @@
 ## Change Log
 ### [Unreleased][unreleased]
 
+### [85252b5] - 2023-11-22
+#### Added
+- changelog
+
+### [62a07c1] - 2023-11-22
+#### Added
+- cbf
+
 ### [70bd2fd] - 2023-11-22
 #### Added
 - escape inputs
@@ -82,6 +90,8 @@
 - initial chat app
 
 [unreleased]: https://github.com/digilopment/messenger-chat-app/compare/75f5a7a...HEAD
+[85252b5]: https://github.com/digilopment/messenger-chat-app/commit/85252b5
+[62a07c1]: https://github.com/digilopment/messenger-chat-app/commit/62a07c1
 [70bd2fd]: https://github.com/digilopment/messenger-chat-app/commit/70bd2fd
 [9a242d7]: https://github.com/digilopment/messenger-chat-app/commit/9a242d7
 [75154f2]: https://github.com/digilopment/messenger-chat-app/commit/75154f2
