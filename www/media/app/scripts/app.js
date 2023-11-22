@@ -52,6 +52,7 @@ class App {
             this.chat.show();
             this.messageFragment.show();
             this.refreshChat();
+            scrollDown();
             console.log('selected channel');
         } else if (this.userName && this.userData.id) {
             this.signFragment.hide();
@@ -122,10 +123,9 @@ class App {
                             sendNotification(latestMessage.user, latestMessage.message);
                         }
                         this.lastMessageId = latestMessage.id;
-                        //scrollDown();
+                        scrollDown();
                     }
                 }
-                scrollDown();
             });
         }
         $('.reloadApp').removeClass("rotate");
