@@ -2,7 +2,6 @@
 
 class Messenger
 {
-
     public $db;
 
     public function __construct()
@@ -29,8 +28,9 @@ class Messenger
         )';
         $this->db->exec($query);
     }
-    
-    public function escape($param){
+
+    public function escape($param)
+    {
         return htmlspecialchars($param);
     }
 
@@ -104,7 +104,7 @@ class Messenger
             $query->bindValue(':color', $color, SQLITE3_TEXT);
             $query->bindValue(':created_at', $createdAt, SQLITE3_TEXT);
             $query->execute();
-            
+
             $query = $this->db->prepare('SELECT MAX(id) FROM users LIMIT 1');
             $result = $query->execute();
             $row = $result->fetchArray(SQLITE3_ASSOC);
@@ -209,5 +209,4 @@ class Messenger
         $paddedColor = str_pad($color, 6, '0', STR_PAD_LEFT);
         return "#$paddedColor";
     }
-
 }
