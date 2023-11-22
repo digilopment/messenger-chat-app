@@ -9,9 +9,9 @@
 
     private function handlePostRequest()
     {
-        $channelName = $_POST['channel'];
-        $userName = $_POST['user'];
-        $messageText = $_POST['message'];
+        $channelName = $this->messenger->escape($_POST['channel']);
+        $userName = $this->messenger->escape($_POST['user']);
+        $messageText = $this->messenger->escape($_POST['message']);
 
         $this->channelName = $this->messenger->nameUrl($channelName);
 

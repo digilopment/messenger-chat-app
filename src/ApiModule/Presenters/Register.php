@@ -11,9 +11,9 @@
     {
 
         $data = [
-            'name' => $_POST['name'],
-            'password' => md5($_POST['password']),
-            'email' => $_POST['email'],
+            'name' => $this->messenger->escape($_POST['name']),
+            'password' => md5($this->messenger->escape($_POST['password'])),
+            'email' => $this->messenger->escape($_POST['email']),
         ];
         $response = $this->messenger->createUser($data);
         $this->messenger->headers()->getResponse($response);

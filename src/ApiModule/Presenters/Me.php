@@ -11,7 +11,7 @@
     public function run()
     {
         $response = [];
-        $paramId = $_GET['id'] ?? '';
+        $paramId = $this->messenger->escape($_GET['id'] ?? '');
         $id = $_SESSION['user'] ?? '';
         $userId = $paramId ? $paramId : $id;
         if ($userId) {

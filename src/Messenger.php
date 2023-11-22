@@ -29,6 +29,10 @@ class Messenger
         )';
         $this->db->exec($query);
     }
+    
+    public function escape($param){
+        return htmlspecialchars($param);
+    }
 
     public function initializeSession()
     {

@@ -10,10 +10,10 @@
     public function run()
     {
         $data = [
-            'password' => $_POST['password'],
-            'email' => $_POST['email'],
-            'oauth' => $_POST['oauth'] ?? '',
-            'name' => $_POST['name'] ?? '',
+            'password' => $this->messenger->escape($_POST['password']),
+            'email' => $this->messenger->escape($_POST['email']),
+            'oauth' => $this->messenger->escape($_POST['oauth'] ?? ''),
+            'name' => $this->messenger->escape($_POST['name'] ?? ''),
         ];
         if ($data['oauth'] && $data['oauth'] == 'facebook') {
             $response = $this->messenger->fbLogin($data);
