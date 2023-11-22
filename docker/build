@@ -13,13 +13,13 @@ docker build -t $LOCAL_IMAGE_NAME ../
 docker tag $LOCAL_IMAGE_NAME:$TAG $DOCKERHUB_USERNAME/$REPOSITORY_NAME:$TAG
 
 # Log in to Docker Hub
-#docker login
+docker login
 
 # Push the Docker image to Docker Hub
-#docker push $DOCKERHUB_USERNAME/$REPOSITORY_NAME:$TAG
+docker push $DOCKERHUB_USERNAME/$REPOSITORY_NAME:$TAG
 
 # Clean up: Remove the local image (optional)
-# docker rmi $LOCAL_IMAGE_NAME:$TAG
+#docker rmi $LOCAL_IMAGE_NAME:$TAG
 
 # Inform user about completion
-#echo "Docker image pushed to $DOCKERHUB_USERNAME/$REPOSITORY_NAME:$TAG"
+echo "Docker image pushed to $DOCKERHUB_USERNAME/$REPOSITORY_NAME:$TAG"
