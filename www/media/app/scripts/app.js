@@ -444,10 +444,13 @@ function formatTime(inputDateString) {
     const dateTime = new Date(year, month - 1, day, hours, minutes, seconds);
 
     if (!isNaN(dateTime.getTime())) {
-        const timeString = dateTime.toLocaleTimeString('en-US', {
+        const timeString = dateTime.toLocaleTimeString('sk-SK', {
             hour12: false,
             hour: '2-digit',
-            minute: '2-digit'
+            minute: '2-digit',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
         });
         return timeString;
     } else {
