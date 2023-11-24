@@ -120,7 +120,7 @@ class App {
                             </div>`);
                         });
                         if (latestMessage.user !== this.userName) {
-                            sendNotification(latestMessage.user, latestMessage.message);
+                            //sendNotification(latestMessage.user, latestMessage.message);
                         }
                         this.lastMessageId = latestMessage.id;
                         scrollDown();
@@ -366,8 +366,26 @@ $(document).ready(function () {
         readMessages(app);
 
     });
+    
+    //WORKERS REGISTRATOR
+    if (window.Worker) {
+        const worker = new Worker('worker.js');
+
+        const appData = {
+            channelName: app.channelName,
+            userName: app.userData.name
+        };
+        console.log(appData);
+        worker.postMessage(appData);
+        worker.onmessage = function (event) {
+            sendNotification(event.data.name, event.data.message);
+        };
+    } else {
+        console.error('Web workers are not supported in this browser');
+    }
 
 });
+
 
 
 /**

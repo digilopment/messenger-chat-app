@@ -4,12 +4,56 @@ LABEL Maintainer="Tomas Doubek <thomas.doubek@gmail.com>" \
       Description="Quesenger"
 
 RUN apk --update add ca-certificates
-RUN apk --no-cache add php php-fpm nginx supervisor curl
+RUN apk --no-cache add php81 php81-fpm nginx supervisor curl
 
-# Install SQLite and the PHP SQLite driver
-RUN apk --no-cache add sqlite php-session php-sqlite3 php-mbstring
-#RUN docker-php-ext-install pdo_sqlite \
-#&& docker-php-ext-enable pdo_sqlite
+# Install EXTENSIONS
+RUN apk --no-cache add \
+    sqlite \
+    php-session \
+    php-sqlite3 \
+    php-mbstring \
+    redis \
+    php81-pdo_mysql \
+    php81-pdo_sqlite \
+    php81-tokenizer \
+    php81-xml \
+    php81-xmlwriter \
+    php81-bcmath \
+    php81-curl \
+    php81-exif \
+    php81-fileinfo \
+    php81-gd \
+    php81-iconv \
+    php81-intl \
+    php81-json \
+    php81-opcache \
+    php81-pcntl \
+    php81-pdo \
+    php81-phar \
+    php81-posix \
+    php81-session \
+    php81-simplexml \
+    php81-sockets \
+    php81-sodium \
+    php81-sysvmsg \
+    php81-sysvsem \
+    php81-sysvshm \
+    php81-xmlreader \
+    php81-xsl \
+    php81-zip
+
+# Install necessary dependencies
+RUN apk --no-cache add \
+    $PHPIZE_DEPS \
+    freetype-dev \
+    libjpeg-turbo-dev \
+    libpng-dev \
+    icu-dev \
+    libmemcached-dev \
+    gmp-dev
+
+#install mariadb
+RUN apk add mariadb
 
 #configs
 COPY docker/app.conf /etc/nginx/nginx.conf
