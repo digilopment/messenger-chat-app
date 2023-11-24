@@ -185,6 +185,26 @@ class App {
         });
     }
 
+    getUsersIds() {
+        var userIds = [];
+        $.ajax({
+            url: "driver.php?route=api/users",
+            method: "GET",
+            dataType: "json",
+            async: false, // Set async to false for synchronous behavior
+            success: function (userData) {
+                $.each(userData, function (k, item) {
+                    userIds[item.id] = item.name;
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error("Error fetching user ids:", error);
+            }
+        });
+
+        return userIds;
+    }
+
     setCookie(name, value, days) {
         var expires = "";
         if (days) {
@@ -294,12 +314,7 @@ $(document).ready(function () {
     readMessages(app);
 
     $('#userListSection select').on('change', function () {
-        function createChannelId(userId, partnerId) {
-            var sortedIds = [userId, partnerId].sort(function (a, b) {
-                return a - b;
-            });
-            return sortedIds.join('-');
-        }
+
         app.chatMessages.empty();
         var partnerId = $(this).val();
         if (partnerId) {
@@ -366,24 +381,26 @@ $(document).ready(function () {
         readMessages(app);
 
     });
-    
+
     //WORKERS REGISTRATOR
-    if (window.Worker) {
-        const worker = new Worker('worker.js');
+    function setWorker(worker, app) {
 
-        const appData = {
-            channelName: app.channelName,
-            userName: app.userData.name
-        };
-        console.log(appData);
-        worker.postMessage(appData);
-        worker.onmessage = function (event) {
-            sendNotification(event.data.name, event.data.message);
-        };
-    } else {
-        console.error('Web workers are not supported in this browser');
+        if (window.Worker) {
+            $.each(app.getUsersIds(), (partnerId, partnerName) => {
+                const appData = {
+                    channelName: createChannelId(app.userData.id, partnerId),
+                    userId: app.userName,
+                    userName: partnerName
+                };
+                worker.postMessage(appData);
+            });
+        } else {
+            console.error('Web workers are not supported in this browser');
+        }
+
     }
-
+    const worker = new Worker('worker.js');
+    setWorker(worker, app);
 });
 
 
@@ -391,6 +408,14 @@ $(document).ready(function () {
 /**
  * HELPERS
  */
+
+function createChannelId(userId, partnerId) {
+    var sortedIds = [userId, partnerId].sort(function (a, b) {
+        return a - b;
+    });
+    return sortedIds.join('-');
+}
+
 function parseLinksInMessage(message) {
     // Regulárny výraz na hľadanie odkazov v texte
     var linkRegex = /(?:https?|ftp):\/\/[^\s/$.?#].[^\s]*/g;
