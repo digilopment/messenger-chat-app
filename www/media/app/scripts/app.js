@@ -144,8 +144,8 @@ class App {
         $.ajax({
             url: "driver.php?route=api/me",
             method: "GET",
-            dataType: "json", // Assuming the response is JSON
-            async: false // Make the request synchronous
+            dataType: "json",
+            async: false
         }).done((response) => {
             userData = response;
         }).fail((jqXHR, textStatus, errorThrown) => {
@@ -159,8 +159,8 @@ class App {
         $.ajax({
             url: "driver.php?route=api/me&id=" + id,
             method: "GET",
-            dataType: "json", // Assuming the response is JSON
-            async: false // Make the request synchronous
+            dataType: "json",
+            async: false
         }).done((response) => {
             userData = response;
         }).fail((jqXHR, textStatus, errorThrown) => {
@@ -199,7 +199,7 @@ class App {
             url: "driver.php?route=api/users",
             method: "GET",
             dataType: "json",
-            async: false, // Set async to false for synchronous behavior
+            async: false,
             success: function (userData) {
                 $.each(userData, function (k, item) {
                     userIds[item.id] = item.name;
@@ -223,7 +223,6 @@ class App {
         document.cookie = name + "=" + value + expires + "; path=/";
     }
 
-// Funkcia pre získanie hodnoty cookies
     getCookie(name) {
         var nameEQ = name + "=";
         var ca = document.cookie.split(';');
