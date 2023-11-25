@@ -400,6 +400,23 @@ $(document).ready(function () {
         readMessages(app);
 
     });
+    
+    $('.requestNotification').on('click', function () {
+        if ('Notification' in window) {
+            Notification.requestPermission().then((permissionResult) => {
+                if (permissionResult === 'granted') {
+                    //alert('Notifikácie sú povolené');
+                    sendNotification('Quesenger', 'Notifikácie sú povolené');
+                } else if (permissionResult === 'denied') {
+                    alert('Notifikácie sú zamietnuté. Ak ich chcete povoliť, prejdite do nastavení vášho prehliadača.');
+                } else {
+                    alert('Váš prehliadač nepodporuje notifikácie.');
+                }
+            });
+        } else {
+            alert('Váš prehliadač nepodporuje notifikácie.');
+        }
+    });
 
     //WORKERS REGISTRATOR
     const worker = new Worker('worker.js');
@@ -480,7 +497,7 @@ function nameUrl(inputString) {
 function sendNotification(user, message) {
     if (Notification.permission === 'granted') {
         var notification = new Notification('Nová správa od ' + user, {
-            icon: 'icon.png', // Môžete pridať vlastný obrázok
+            icon: '/media/app/images/180.png', // Môžete pridať vlastný obrázok
             body: message
         });
     }
