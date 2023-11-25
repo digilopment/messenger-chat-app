@@ -11,7 +11,7 @@ self.onmessage = function (event) {
 
 function loadChannelMessage(channelName, userId, userName) {
     if (channelName) {
-        fetch(`driver.php?route=api/message&channel=${channelName}`)
+        fetch(`driver.php?route=api/message&channel=${channelName}&push=1`)
                 .then(response => response.json())
                 .then(messages => {
                     if (messages) {

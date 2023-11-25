@@ -95,13 +95,21 @@ class App {
     refreshChat() {
         if (this.channelName) {
             this.chatMessages.fadeIn();
-            $.get("driver.php?route=api/message", {channel: this.channelName}, (data) => {
-                const messages = JSON.parse(data);
+            let requestUrl;
+            if (this.lastMessageId === 0) {
+                requestUrl = "driver.php?route=api/message";
+
+            } else {
+                requestUrl = "driver.php?route=api/message&fromId=" + this.lastMessageId;
+            }
+            $.get(requestUrl, {channel: this.channelName}, (data) => {
+            const messages = JSON.parse(data);
                 if (messages) {
                     const latestMessage = messages[messages.length - 1];
                     if (latestMessage && (latestMessage.id > this.lastMessageId || (latestMessage.channel_name !== this.channelName))) {
-                        this.chatMessages.empty();
-                        //messages.reverse().forEach((msg) => {
+                        if (this.lastMessageId === 0) {
+                            this.chatMessages.empty();
+                        }
                         messages.forEach((msg) => {
                             const messageWithLinks = parseLinksInMessage(msg.message);
                             var userClass = msg.user == this.userData.id ? 'user-me' : 'user-partner';

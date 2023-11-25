@@ -24,21 +24,22 @@
         $query->execute();
     }
 
-    private function handleGetRequest()
+    public function handleGetRequest($data = [])
     {
         $channelName = $_GET['channel'];
         $this->channelName = $this->messenger->nameUrl($channelName);
 
-        $query = $this->messenger->db->prepare('SELECT * FROM messages WHERE channel_name = :channel_name ORDER BY created_at');
+        $limit = $data['limit'] ?? '';
+        $orderBy = $data['orderBy'] ?? 'ORDER BY created_at';
+        $andWhere = $data['andWhere'] ?? '';
+        $query = $this->messenger->db->prepare('SELECT * FROM messages WHERE channel_name = :channel_name ' . $andWhere . ' ' . $orderBy . ' ' . $limit . '');
         $query->bindValue(':channel_name', $this->channelName, SQLITE3_TEXT);
 
         $result = $query->execute();
         $data = [];
-
         while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
             $data[] = $row;
         }
-
         echo json_encode($data);
     }
 
@@ -47,7 +48,21 @@
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->handlePostRequest();
         } else {
-            $this->handleGetRequest();
+            if (isset($_GET['push'])) {
+                $data = [
+                    'orderBy' => 'ORDER BY id DESC',
+                    'limit' => 'LIMIT 1',
+                ];
+                $this->handleGetRequest($data);
+            } else if (isset($_GET['fromId'])) {
+                $data = [
+                    'andWhere' => 'AND id > ' . $this->messenger->escape($_GET['fromId']),
+                ];
+                $this->handleGetRequest($data);
+            } else {
+                $this->handleGetRequest();
+            }
         }
     }
+
 })->route();
