@@ -6,7 +6,7 @@ self.onmessage = function (event) {
         const userId = event.data.userId;
         const userName = event.data.userName;
         loadChannelMessage(channelName, userId, userName);
-    }, 1000);
+    }, 5000);
 };
 
 function loadChannelMessage(channelName, userId, userName) {

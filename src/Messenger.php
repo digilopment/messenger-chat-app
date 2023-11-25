@@ -126,10 +126,9 @@ class Messenger
 
     public function login($data)
     {
-        $password = md5($data['password']);
         $email = $data['email'];
         $user = $this->getUserByEmail($email);
-        if ($user && ($user['password'] == md5($password))) {
+        if ($user && ($user['password'] == md5($data['password']))) {
             $_SESSION['user'] = $user['id'];
             return [
                 'success' => 1,
@@ -141,6 +140,7 @@ class Messenger
                 'success' => 0,
                 'message' => 'Nesprávne prihlasovacie údaje.',
                 'data' => $user,
+                'post_data' => $data,
             ];
         }
     }
@@ -151,7 +151,7 @@ class Messenger
         $name = $data['name'];
         $email = $data['email'];
         $user = $this->getUserByEmail($email);
-        if ($user && ($user['password'] == md5($password))) {
+        if ($user && ($user['password'] == $password)) {
             $_SESSION['user'] = $user['id'];
         } else {
             $data = [
