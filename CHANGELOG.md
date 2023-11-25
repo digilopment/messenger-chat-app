@@ -1,6 +1,54 @@
 ## Change Log
 ### [Unreleased][unreleased]
 
+### [3f03516] - 2023-11-25
+#### Added
+- fix login issue
+
+### [2312bc3] - 2023-11-25
+#### Added
+- notification worker
+
+### [d883254] - 2023-11-25
+#### Added
+- notifications
+
+### [4e552a9] - 2023-11-24
+#### Added
+- worker notification
+
+### [8821c10] - 2023-11-24
+#### Added
+- meta
+
+### [2bcc9e2] - 2023-11-22
+#### Added
+- meta
+
+### [f12e24c] - 2023-11-22
+#### Added
+- meta
+
+### [378da9d] - 2023-11-22
+#### Added
+- build script
+
+### [c8461ec] - 2023-11-22
+#### Added
+- rename app
+
+### [058eaa4] - 2023-11-22
+#### Added
+- scroll down
+
+### [2f94b93] - 2023-11-22
+#### Added
+- changelog
+
+### [17c8df2] - 2023-11-22
+#### Added
+- ful datteime
+
 ### [85252b5] - 2023-11-22
 #### Added
 - changelog
@@ -90,6 +138,18 @@
 - initial chat app
 
 [unreleased]: https://github.com/digilopment/messenger-chat-app/compare/75f5a7a...HEAD
+[3f03516]: https://github.com/digilopment/messenger-chat-app/commit/3f03516
+[2312bc3]: https://github.com/digilopment/messenger-chat-app/commit/2312bc3
+[d883254]: https://github.com/digilopment/messenger-chat-app/commit/d883254
+[4e552a9]: https://github.com/digilopment/messenger-chat-app/commit/4e552a9
+[8821c10]: https://github.com/digilopment/messenger-chat-app/commit/8821c10
+[2bcc9e2]: https://github.com/digilopment/messenger-chat-app/commit/2bcc9e2
+[f12e24c]: https://github.com/digilopment/messenger-chat-app/commit/f12e24c
+[378da9d]: https://github.com/digilopment/messenger-chat-app/commit/378da9d
+[c8461ec]: https://github.com/digilopment/messenger-chat-app/commit/c8461ec
+[058eaa4]: https://github.com/digilopment/messenger-chat-app/commit/058eaa4
+[2f94b93]: https://github.com/digilopment/messenger-chat-app/commit/2f94b93
+[17c8df2]: https://github.com/digilopment/messenger-chat-app/commit/17c8df2
 [85252b5]: https://github.com/digilopment/messenger-chat-app/commit/85252b5
 [62a07c1]: https://github.com/digilopment/messenger-chat-app/commit/62a07c1
 [70bd2fd]: https://github.com/digilopment/messenger-chat-app/commit/70bd2fd
