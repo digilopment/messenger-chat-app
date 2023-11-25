@@ -295,6 +295,18 @@ class App {
 
 $(document).ready(function () {
 
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '357055923378845',
+            cookie: true,
+            xfbml: true,
+            version: 'v18.0'
+        });
+        FB.getLoginStatus(function (response) {
+            statusChangeCallback(response);
+        });
+    };
+
     app = new App();
     app.init();
 
@@ -383,31 +395,26 @@ $(document).ready(function () {
     });
 
     //WORKERS REGISTRATOR
-    function setWorker(worker, app) {
-
-        if (window.Worker) {
-            $.each(app.getUsersIds(), (partnerId, partnerName) => {
-                const appData = {
-                    channelName: createChannelId(app.userData.id, partnerId),
-                    userId: app.userName,
-                    userName: partnerName
-                };
-                worker.postMessage(appData);
-            });
-        } else {
-            console.error('Web workers are not supported in this browser');
-        }
-
-    }
     const worker = new Worker('worker.js');
     setWorker(worker, app);
 });
 
 
+function setWorker(worker, app) {
+    if (window.Worker) {
+        $.each(app.getUsersIds(), (partnerId, partnerName) => {
+            const appData = {
+                channelName: createChannelId(app.userData.id, partnerId),
+                userId: app.userName,
+                userName: partnerName
+            };
+            worker.postMessage(appData);
+        });
+    } else {
+        console.error('Web workers are not supported in this browser');
+    }
 
-/**
- * HELPERS
- */
+}
 
 function createChannelId(userId, partnerId) {
     var sortedIds = [userId, partnerId].sort(function (a, b) {
@@ -415,7 +422,22 @@ function createChannelId(userId, partnerId) {
     });
     return sortedIds.join('-');
 }
-
+function statusChangeCallback(response) {
+    if (response.status === 'connected') {
+        FB.api('/me', function (response) {
+            console.log(response);
+            app.fbLogin(response);
+        });
+    } else {
+        document.getElementById('status').innerHTML = 'Please log ' +
+                'into this webpage.';
+    }
+}
+function checkLoginState() {
+    FB.getLoginStatus(function (response) {
+        statusChangeCallback(response);
+    });
+}
 function parseLinksInMessage(message) {
     // Regulárny výraz na hľadanie odkazov v texte
     var linkRegex = /(?:https?|ftp):\/\/[^\s/$.?#].[^\s]*/g;
