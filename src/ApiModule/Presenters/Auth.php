@@ -15,6 +15,7 @@
             'oauth' => $this->messenger->escape($_POST['oauth'] ?? ''),
             'name' => $this->messenger->escape($_POST['name'] ?? ''),
         ];
+        $this->messenger->log($data);
         if ($data['oauth'] && $data['oauth'] == 'facebook') {
             $response = $this->messenger->fbLogin($data);
             $this->messenger->headers()->getResponse($response);

@@ -11,7 +11,6 @@
         foreach (explode('/', $input) as $i => $part) {
             $words = explode('-', $part);
             $capitalizedWords = array_map('ucfirst', $words);
-            //$name = ($i == 0 ? $capitalizedWords . 'Module' : $capitalizedWords);
             if ($i == 0) {
                 $path[] = implode('', $capitalizedWords) . 'Module/Presenters';
             } else {

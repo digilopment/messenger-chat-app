@@ -78,16 +78,19 @@ class Messenger
         return $row['count'];
     }
 
+    public function log($data)
+    {
+        file_put_contents('../storage/login.txt', json_encode($data), FILE_APPEND);
+    }
+
     public function createUser($data)
     {
         $name = $data['name'];
         $password = md5($data['password']);
         $email = $data['email'];
 
-        // Získa farbu na základe mena
         $color = $this->stringToHexColor($name);
 
-        // Kontrola, či používateľ s rovnakým emailom neexistuje
         if ($this->userExists($email)) {
             $response = [
                 'success' => 0,
