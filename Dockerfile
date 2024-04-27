@@ -6,13 +6,11 @@ LABEL Maintainer="Tomas Doubek <thomas.doubek@gmail.com>" \
 RUN apk --update add ca-certificates
 RUN apk --no-cache add php81 php81-fpm nginx supervisor curl
 
-# Install EXTENSIONS
+# Install PHP EXTENSIONS
 RUN apk --no-cache add \
-    sqlite \
     php-session \
     php-sqlite3 \
     php-mbstring \
-    redis \
     php81-pdo_mysql \
     php81-pdo_sqlite \
     php81-tokenizer \
@@ -52,8 +50,12 @@ RUN apk --no-cache add \
     libmemcached-dev \
     gmp-dev
 
-#install mariadb
-RUN apk add mariadb
+#install platform dependencies mariadb
+RUN apk add mariadb  \
+    sqlite \
+    redis \
+    memcached \
+    phpmyadmin
 
 #configs
 COPY docker/app.conf /etc/nginx/nginx.conf
@@ -77,6 +79,6 @@ COPY --chown=nobody src/ /var/www/html/src
 COPY --chown=nobody storage/ /var/www/html/storage
 COPY --chown=nobody www/ /var/www/html/www
 
-EXPOSE 80
+EXPOSE 80 8080
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
